@@ -3,3 +3,4 @@ build/
 env_athena_mailer/
 .terraform/
 plan
+athena_mailer.zip
