@@ -26,7 +26,7 @@ deactivate
 # Create deployment package...
 echo "Creating deployment package..."
 cp -r ./env_athena_mailer/lib/python3.8/site-packages/. ./$dir_name
-cp -r ./lambda/main.py ./$dir_name
+cp -r ./lambda/*.py ./$dir_name
 
 ## Removing virtual environment folder...
 echo "Removing virtual environment folder..."
