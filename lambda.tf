@@ -1,12 +1,6 @@
 resource "null_resource" "build_athena_mailer" {
   provisioner "local-exec" {
     command = "bash ${path.module}/scripts/build.sh"
-    environment = {
-      source_code_path = "./lambda/main"
-      function_name = "athena-mailer"
-      path_module = path.module
-      path_cwd = path.cwd
-    }
   }
 }
 

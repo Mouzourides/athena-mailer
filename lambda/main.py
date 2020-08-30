@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import requests
 
+
 def handler(event, context):
     response_body = {
         "statusCode": 200,
