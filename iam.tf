@@ -56,6 +56,40 @@ data "aws_iam_policy_document" "lambda_policy_doc" {
       "logs:PutLogEvents",
     ]
   }
+
+  statement {
+    sid = "AllowAthenaQueryExecution"
+    effect = "Allow"
+
+    resources = [
+      "arn:aws:athena:eu-west-1:*",
+      "arn:aws:glue:eu-west-1:*:*"
+    ]
+
+    actions = [
+      "athena:StartQueryExecution",
+      "athena:GetQueryExecution",
+      "athena:GetQueryResults",
+      "glue:GetTable"
+    ]
+  }
+  statement {
+    sid = "AllowS3Access"
+    effect = "Allow"
+
+    resources = [
+      "arn:aws:s3:::nikmouz-athena-query-results/*",
+      "arn:aws:s3:::nikmouz-athena-query-results",
+      "arn:aws:s3:::nikmouz.dev-logs/*",
+      "arn:aws:s3:::nikmouz.dev-logs"
+    ]
+
+    actions = [
+      "s3:GetObject",
+      "s3:PutObject",
+      "s3:ListBucket",
+    ]
+  }
 }
 
 resource "aws_iam_policy" "lambda_iam_policy" {
