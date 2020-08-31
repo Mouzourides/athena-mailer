@@ -18,6 +18,13 @@ def handler(event, context):
 
     try:
         check_query_state_until_ready(query_execution_id)
+
+        query_results = athena_client.get_query_results(QueryExecutionId=query_execution_id)
+        result = query_results["ResultSet"]["Rows"][1]["Data"][0]["VarCharValue"]
+        traffic_result = "Total traffic: " + result
+        print(traffic_result)
+
+        send_email(traffic_result)
     except Exception as e:
         return {
             "statusCode": 500,
@@ -25,13 +32,6 @@ def handler(event, context):
                 "message": str(e)
             }
         }
-
-    query_results = athena_client.get_query_results(QueryExecutionId=query_execution_id)
-    result = query_results["ResultSet"]["Rows"][1]["Data"][0]["VarCharValue"]
-    traffic_result = "Total traffic: " + result
-    print(traffic_result)
-
-    send_email(traffic_result)
 
     return {
         "statusCode": 200,
@@ -56,24 +56,21 @@ def check_query_state_until_ready(query_execution_id):
 
 
 def send_email(data):
-    try:
-        email_client.send_email(
-            Source='log-stats@nikmouz.dev',
-            Destination={
-                'ToAddresses': ['***REMOVED***']
+    email_client.send_email(
+        Source='log-stats@nikmouz.dev',
+        Destination={
+            'ToAddresses': ['***REMOVED***']
+        },
+        Message={
+            'Subject': {
+                'Data': f'Log stats from nikmouz.dev at {date.today()}'
             },
-            Message={
-                'Subject': {
-                    'Data': f'Log stats from nikmouz.dev at {date.today()}'
-                },
-                'Body': {
-                    'Text': {
-                        'Data': data
-                    }
+            'Body': {
+                'Text': {
+                    'Data': data
                 }
-            })
-    except Exception as e:
-        print(str(e))
+            }
+        })
 
 
 if __name__ == '__main__':
