@@ -2,16 +2,16 @@ resource "aws_iam_role" "lambda_exec_role" {
   name = "athena_mailer_role"
   assume_role_policy = <<EOF
 {
-"Version": "2012-10-17",
-"Statement": [
-{
-"Effect": "Allow",
-"Action": "sts:AssumeRole",
-"Principal": {
-"Service": "lambda.amazonaws.com"
-}
-}
-]
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": "sts:AssumeRole",
+      "Principal": {
+        "Service": "lambda.amazonaws.com"
+      }
+    }
+  ]
 }
   EOF
 }
