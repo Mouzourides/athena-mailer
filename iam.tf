@@ -73,6 +73,7 @@ data "aws_iam_policy_document" "lambda_policy_doc" {
       "glue:GetTable"
     ]
   }
+
   statement {
     sid = "AllowS3Access"
     effect = "Allow"
@@ -88,6 +89,19 @@ data "aws_iam_policy_document" "lambda_policy_doc" {
       "s3:GetObject",
       "s3:PutObject",
       "s3:ListBucket",
+    ]
+  }
+
+  statement {
+    sid = "AllowEmailSendAccess"
+    effect = "Allow"
+
+    resources = [
+      "arn:aws:ses:eu-west-1:005405328181:identity/nik*"
+    ]
+
+    actions = [
+      "ses:SendEmail"
     ]
   }
 }
