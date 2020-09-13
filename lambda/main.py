@@ -57,7 +57,7 @@ def check_query_state_until_ready(query_execution_id):
 
 def send_email(data):
     email_client.send_email(
-        Source='log-stats@nikmouz.dev',
+        Source='Log Stats - nikmouz.dev <log-stats@nikmouz.dev>',
         Destination={
             'ToAddresses': ['***REMOVED***']
         },
