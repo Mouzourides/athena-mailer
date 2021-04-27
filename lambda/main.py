@@ -71,7 +71,7 @@ def send_email(data):
     email_client.send_email(
         Source='Log Stats - nikmouz.dev <log-stats@nikmouz.dev>',
         Destination={
-            'ToAddresses': ['***REMOVED***']
+            'ToAddresses': ['log-stats@nikmouz.dev']
         },
         Message={
             'Subject': {
